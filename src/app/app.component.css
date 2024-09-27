@@ -1,0 +1,22 @@
+.con{
+  display: flex;
+  flex-direction: row;
+}
+.header{
+  width: 100%;
+  height: 5rem;
+  background-color: red;
+}
+.nav{
+  width: 15%;
+  border: 1px solid red;
+}
+.content{
+  width: 85%;
+  height: 50rem;
+  /* background-color: black; */
+}
+.chart{
+  width: 600px;
+  height: 300px;
+}

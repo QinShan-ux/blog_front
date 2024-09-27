@@ -1,0 +1,63 @@
+
+  [
+    {
+      "id":"",
+      "plan":"写一个博客，不拘泥于技术（后端可以用java，c#，前端可以用vue，angular）",
+      "inspiration":[
+
+      ],
+      "trouble":[
+       
+      ],
+      "createTime":"2024-08-19",
+      "successTime":""
+    },
+    {
+      "id":"",
+      "plan":"维护一个公众号",
+      "inspiration":[
+
+      ],
+      "trouble":[
+       
+      ],
+      "createTime":"2024-08-19",
+      "successTime":""
+    },
+    {
+      "id":"",
+      "plan":"搞一个开源项目",
+      "inspiration":[
+
+      ],
+      "trouble":[
+       
+      ],
+      "createTime":"2024-08-19",
+      "successTime":""
+    },
+    {
+      "id":"",
+      "plan":"做一个windows程序，用于数据格式转换",
+      "inspiration":[
+
+      ],
+      "trouble":[
+       
+      ],
+      "createTime":"2024-08-19",
+      "successTime":""
+    },
+    {
+      "id":"",
+      "plan":"写一个pokemmo游戏脚本",
+      "inspiration":[
+
+      ],
+      "trouble":[
+       
+      ],
+      "createTime":"2024-08-19",
+      "successTime":""
+    }
+  ]
