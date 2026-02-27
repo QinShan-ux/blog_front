@@ -1,0 +1,163 @@
+<!-- 页面头部 -->
+<section class="plan-hero">
+  <div class="hero-content">
+    <h1>黄山两日游计划</h1>
+    <p class="hero-sub">奇松、怪石、云海、温泉 — 一场不可错过的家庭之旅</p>
+    <div class="trip-tags">
+      <span class="trip-tag">{{ tripInfo.transport }}</span>
+      <span class="trip-tag">{{ tripInfo.duration }}</span>
+      <span class="trip-tag">{{ tripInfo.adults }}大人 + {{ tripInfo.children }}小孩</span>
+      <span class="trip-tag">儿童{{ tripInfo.childAge }}</span>
+    </div>
+  </div>
+</section>
+
+<main class="plan-container">
+
+  <!-- 行程概览 -->
+  <section class="overview-cards">
+    <div class="ov-card">
+      <span class="ov-icon">📍</span>
+      <div>
+        <p class="ov-label">目的地</p>
+        <p class="ov-value">{{ tripInfo.destination }}</p>
+      </div>
+    </div>
+    <div class="ov-card">
+      <span class="ov-icon">👥</span>
+      <div>
+        <p class="ov-label">出行人数</p>
+        <p class="ov-value">{{ tripInfo.adults }}大{{ tripInfo.children }}小</p>
+      </div>
+    </div>
+    <div class="ov-card">
+      <span class="ov-icon">🚗</span>
+      <div>
+        <p class="ov-label">出行方式</p>
+        <p class="ov-value">{{ tripInfo.transport }}</p>
+      </div>
+    </div>
+    <div class="ov-card">
+      <span class="ov-icon">💰</span>
+      <div>
+        <p class="ov-label">预估总费用</p>
+        <p class="ov-value price-highlight">{{ totalPrice | number }}元</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 第一天行程 -->
+  <section class="day-section">
+    <div class="day-header">
+      <span class="day-badge">DAY 1</span>
+      <h2>上山 · 北海景区 · 光明顶日落</h2>
+    </div>
+    <div class="timeline">
+      @for (item of day1Schedule; track item.time) {
+        <div class="timeline-item">
+          <div class="timeline-dot">
+            <span class="timeline-icon">{{ item.icon }}</span>
+          </div>
+          <div class="timeline-content">
+            <div class="timeline-time">{{ item.time }}</div>
+            <h3>{{ item.activity }}</h3>
+            <p>{{ item.detail }}</p>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- 第二天行程 -->
+  <section class="day-section">
+    <div class="day-header">
+      <span class="day-badge day-badge-2">DAY 2</span>
+      <h2>日出 · 西海大峡谷 · 迎客松 · 返程</h2>
+    </div>
+    <div class="timeline">
+      @for (item of day2Schedule; track item.time) {
+        <div class="timeline-item">
+          <div class="timeline-dot">
+            <span class="timeline-icon">{{ item.icon }}</span>
+          </div>
+          <div class="timeline-content">
+            <div class="timeline-time">{{ item.time }}</div>
+            <h3>{{ item.activity }}</h3>
+            <p>{{ item.detail }}</p>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- 费用清单 -->
+  <section class="price-section">
+    <h2 class="section-heading">费用清单</h2>
+    <div class="price-table-wrap">
+      <table class="price-table">
+        <thead>
+          <tr>
+            <th>项目</th>
+            <th>单位</th>
+            <th>成人单价</th>
+            <th>成人数量</th>
+            <th>儿童单价</th>
+            <th>儿童数量</th>
+            <th>小计</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of priceList; track item.name) {
+            <tr [class.optional-row]="item.name.includes('可选')">
+              <td class="item-name">
+                {{ item.name }}
+              </td>
+              <td>{{ item.unit }}</td>
+              <td>¥{{ item.adultPrice }}</td>
+              <td>{{ item.adultQty }}</td>
+              <td>{{ item.childPrice > 0 ? '¥' + item.childPrice : '-' }}</td>
+              <td>{{ item.childQty > 0 ? item.childQty : '-' }}</td>
+              <td class="subtotal">¥{{ getItemTotal(item) | number }}</td>
+            </tr>
+          }
+        </tbody>
+        <tfoot>
+          <tr class="total-row">
+            <td colspan="6">必要费用合计</td>
+            <td class="grand-total">¥{{ requiredTotal | number }}</td>
+          </tr>
+          <tr class="total-row total-all">
+            <td colspan="6">全部费用合计（含可选）</td>
+            <td class="grand-total">¥{{ totalPrice | number }}</td>
+          </tr>
+          <tr class="avg-row">
+            <td colspan="6">人均费用（6人均摊）</td>
+            <td class="avg-total">≈ ¥{{ perPersonAvg | number }}/人</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <p class="price-note">* 以上价格为参考价格，实际价格以景区公告为准。儿童票适用于6周岁以上、1.2m-1.5m之间的儿童。</p>
+  </section>
+
+  <!-- 注意事项 -->
+  <section class="notice-section">
+    <h2 class="section-heading">详细注意事项</h2>
+    <div class="notice-grid">
+      @for (group of notices; track group.title) {
+        <div class="notice-card">
+          <div class="notice-header">
+            <span class="notice-icon">{{ group.icon }}</span>
+            <h3>{{ group.title }}</h3>
+          </div>
+          <ul>
+            @for (item of group.items; track item) {
+              <li>{{ item }}</li>
+            }
+          </ul>
+        </div>
+      }
+    </div>
+  </section>
+
+</main>

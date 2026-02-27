@@ -1,0 +1,116 @@
+<!-- 页面头部 -->
+<section class="essay-hero">
+  <div class="hero-inner">
+    <div class="hero-icon">&#9997;&#65039;</div>
+    <h1>随笔集</h1>
+    <p class="hero-sub">记录生活的碎片，留住时光的温度</p>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num">{{ essayCount() }}</span>
+        <span class="stat-label">篇随笔</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-num">{{ tagCount() }}</span>
+        <span class="stat-label">个话题</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-num">{{ latestDate() }}</span>
+        <span class="stat-label">最近更新</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="essay-main">
+
+  <!-- 标签筛选 -->
+  <section class="tag-filter">
+    <span class="filter-label">话题筛选：</span>
+    <div class="filter-tags">
+      @for (tag of allTags(); track tag) {
+        <button
+          class="filter-tag"
+          [class.active]="selectedTag() === tag"
+          (click)="selectTag(tag)">
+          {{ tag }}
+        </button>
+      }
+      @if (selectedTag()) {
+        <button class="filter-clear" (click)="clearTag()">清除筛选</button>
+      }
+    </div>
+  </section>
+
+  <!-- 随笔列表 -->
+  <section class="essay-list">
+    @for (essay of filteredEssays(); track essay.id) {
+      <article class="essay-card" [style.--accent]="essay.bgColor">
+
+        <!-- 日期面板 -->
+        <div class="card-date-panel">
+          <div class="date-block">
+            <span class="date-day">{{ getDayOfMonth(essay.date) }}</span>
+            <span class="date-month">{{ getMonthLabel(essay.date) }}</span>
+            <span class="date-weekday">{{ getWeekday(essay.date) }}</span>
+          </div>
+        </div>
+
+        <!-- 内容区 -->
+        <div class="card-body">
+          <div class="card-header">
+            <h2 (click)="toggleExpand(essay.id)">{{ essay.title }}</h2>
+            <div class="card-meta">
+              <span class="meta-badge mood">{{ essay.moodIcon }} {{ essay.mood }}</span>
+              <span class="meta-badge weather">{{ essay.weatherIcon }} {{ essay.weather }}</span>
+              <span class="meta-badge location">&#128205; {{ essay.location }}</span>
+            </div>
+          </div>
+
+          <!-- 摘要 / 全文 -->
+          @if (isExpanded(essay.id)) {
+            <div class="card-content expanded">
+              @for (para of essay.content.split('\n\n'); track $index) {
+                <p>{{ para }}</p>
+              }
+            </div>
+          } @else {
+            <p class="card-excerpt">{{ essay.excerpt }}</p>
+          }
+
+          <!-- 底部 -->
+          <div class="card-footer">
+            <div class="card-tags">
+              @for (tag of essay.tags; track tag) {
+                <span class="essay-tag" [class.active]="selectedTag() === tag" (click)="selectTag(tag)">{{ tag }}</span>
+              }
+            </div>
+            <button class="expand-btn" (click)="toggleExpand(essay.id)">
+              {{ isExpanded(essay.id) ? '收起 ↑' : '展开阅读 ↓' }}
+            </button>
+          </div>
+        </div>
+
+      </article>
+    }
+  </section>
+
+  <!-- 空状态 -->
+  @if (filteredEssays().length === 0) {
+    <div class="empty-state">
+      <span class="empty-icon">&#128221;</span>
+      <p>暂无相关随笔</p>
+      <button class="filter-clear" (click)="clearTag()">查看全部</button>
+    </div>
+  }
+
+  <!-- 底部引言 -->
+  <section class="essay-footer-quote">
+    <blockquote>
+      "生活不是我们活过的日子，而是我们记住的日子。"
+      <cite>—— 加西亚·马尔克斯</cite>
+    </blockquote>
+  </section>
+
+</main>

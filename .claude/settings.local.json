@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir:*)",
+      "Bash(wc:*)",
+      "Bash(ng version:*)",
+      "Bash(npx @angular/cli version)",
+      "Bash(npx @angular/cli new:*)",
+      "WebFetch(domain:localhost)",
+      "Bash(curl:*)",
+      "Bash(npx ng build:*)",
+      "Bash(npx ng serve:*)"
+    ]
+  }
+}

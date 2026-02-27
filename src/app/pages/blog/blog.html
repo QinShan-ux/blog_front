@@ -1,0 +1,86 @@
+<!-- 博主简介 -->
+<section class="profile">
+  <img class="avatar" src="images/头像.png" alt="头像">
+  <div class="profile-info">
+    <h1>你好，我是博主</h1>
+    <p>热爱技术与生活，在这里记录学习笔记、项目心得和日常思考。</p>
+    <div class="social-links">
+      <a href="#">GitHub</a>
+      <a href="#">Twitter</a>
+      <a href="#">Email</a>
+    </div>
+  </div>
+</section>
+
+<!-- 主体内容 -->
+<main class="container">
+
+  <!-- 文章列表 -->
+  <section class="articles">
+    <h2 class="section-title">
+      @if (selectedTag(); as tag) {
+        标签：{{ tag }}
+        <a class="clear-filter" (click)="selectTag(tag)">清除筛选</a>
+      } @else {
+        最新文章
+      }
+    </h2>
+
+    @for (article of filteredArticles(); track article.title) {
+      <article class="article-card">
+        <h2><a [routerLink]="'/post/' + article.id">{{ article.title }}</a></h2>
+        <div class="article-meta">
+          <span>{{ article.date }}</span>
+          <span>{{ article.category }}</span>
+          <span>{{ article.readTime }}</span>
+        </div>
+        <p class="article-excerpt">{{ article.excerpt }}</p>
+        <div>
+          @for (tag of article.tags; track tag) {
+            <span class="tag">{{ tag }}</span>
+          }
+        </div>
+        <a class="read-more" [routerLink]="'/post/' + article.id">阅读全文 &rarr;</a>
+      </article>
+    }
+  </section>
+
+  <!-- 侧边栏 -->
+  <aside class="sidebar">
+
+    <!-- 分类 -->
+    <div class="widget">
+      <h3>分类</h3>
+      <ul class="category-list">
+        <li><a href="#">前端开发</a> <span class="count">12</span></li>
+        <li><a href="#">JavaScript</a> <span class="count">9</span></li>
+        <li><a href="#">DevOps</a> <span class="count">5</span></li>
+        <li><a href="#">随笔</a> <span class="count">7</span></li>
+        <li><a href="#">读书笔记</a> <span class="count">4</span></li>
+      </ul>
+    </div>
+
+    <!-- 标签 -->
+    <div class="widget">
+      <h3>标签</h3>
+      <div class="tag-cloud">
+        @for (tag of allTags(); track tag) {
+          <a class="tag" [class.active]="selectedTag() === tag" (click)="selectTag(tag)">{{ tag }}</a>
+        }
+      </div>
+    </div>
+
+    <!-- 归档 -->
+    <div class="widget">
+      <h3>归档</h3>
+      <ul class="archive-list">
+        <li><a href="#">2026 年 2 月</a> <span class="count">1</span></li>
+        <li><a href="#">2026 年 1 月</a> <span class="count">2</span></li>
+        <li><a href="#">2025 年 12 月</a> <span class="count">4</span></li>
+        <li><a href="#">2025 年 11 月</a> <span class="count">3</span></li>
+        <li><a href="#">2025 年 10 月</a> <span class="count">5</span></li>
+      </ul>
+    </div>
+
+  </aside>
+</main>
